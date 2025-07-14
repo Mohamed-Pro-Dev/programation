@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Beaty-mer</title>
+    <!-- Google Fonts Imports -->
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #3a0ca3;
+            --secondary: #f72585;
+            --light: #f8f9fa;
+            --dark: #212529;
+            --success: #4cc9f0;
+            --light-grey: #e0e0e0; /* New */
+            --text-dark: #4a4a4a; /* New */
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Open Sans', sans-serif; /* Updated */
+        }
+
+        body {
+            background-color: #f5f5f5;
+            color: var(--text-dark); /* Updated */
+            line-height: 1.6;
+            /* Subtle background pattern */
+            background-image: url('data:image/svg+xml,%3Csvg width="6" height="6" viewBox="0 0 6 6" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="%239C92AC" fill-opacity="0.1" fill-rule="evenodd"%3E%3Cpath d="M5 0h1L0 6V5zM6 5v1H5z"/%3E%3C/g%3E%3C/svg%3E');
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Poppins', sans-serif; /* New */
+            color: var(--dark);
+        }
+
+        header {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 5%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            transition: color 0.3s, transform 0.3s; /* Added transform */
+        }
+
+        .nav-links a:hover {
+            color: var(--secondary);
+            transform: scale(1.05); /* Added scale */
+        }
+
+        .cart-icon {
+            position: relative;
+            cursor: pointer;
+        }
+
+        .cart-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background-color: var(--secondary);
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 0.7rem;
+        }
+
+        .hero {
+            background: linear-gradient(135deg, var(--primary) 0%, #7209b7 100%);
+            color: white;
+            padding: 5rem 5%;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 2rem;
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: var(--secondary);
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            border: 2px solid white;
+            margin-left: 1rem;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px) scale(1.02); /* Added scale */
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .products {
+            padding: 5rem 5%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-title h2 {
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .product-card {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+        }
+
+        .product-info {
+            padding: 1.5rem;
+        }
+
+        .product-title {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .product-price {
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .add-to-cart {
+            width: 100%;
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.7rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .add-to-cart:hover {
+            background-color: #2a097a;
+        }
+
+        .order-form {
+            background-color: white;
+            padding: 3rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            max-width: 800px;
+            margin: 3rem auto;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        .form-group textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .cart-items {
+            margin-bottom: 2rem;
+        }
+
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .remove-item {
+            color: var(--secondary);
+            cursor: pointer;
+            background: none;
+            border: none;
+            font-size: 0.9rem;
+        }
+
+        .total {
+            text-align: right;
+            font-weight: 700;
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+        }
+
+        footer {
+            background-color: var(--dark);
+            color: white;
+            text-align: center;
+            padding: 3rem 5%;
+            margin-top: 5rem;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: var(--secondary);
+        }
+
+        .copyright {
+            opacity: 0.7;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            nav {
+                flex-direction: column;
+                gap: 1.5rem;
+            }
+
+            .nav-links {
+                width: 100%;
+                justify-content: space-between;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .order-form {
+                padding: 2rem;
+            }
+        }
+
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: var(--success);
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 5px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transform: translateX(200%);
+            transition: transform 0.3s;
+            z-index: 1000;
+        }
+
+        .notification.show {
+            transform: translateX(0);
+        }
+        
+        input[type="hidden"] {
+            display: none;
+        }
+
+        /* Fade-in animation */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+
+        .fade-in.appear {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="#" class="logo">Beaty-Mer</a>
+            
+            <div class="nav-links">
+                <a href="#products">Shop</a>
+                <a href="#design">Custom Designs</a>
+                <a href="#about">About</a>
+                <a href="#contact">Contact</a>
+                <div class="cart-icon">
+                    🛒
+                    <span class="cart-count">0</span>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <section class="hero fade-in">
+        <h1>Custom Print-on-Demand Clothing</h1>
+        <p>Create your unique style with our high-quality apparel and custom printing service. No minimums, no inventory – just designs you love.</p>
+        <div>
+            <a href="#products" class="btn">Shop Now</a>
+            <a href="#design" class="btn btn-outline">Create Custom Design</a>
+        </div>
+    </section>
+
+    <section id="products" class="products fade-in">
+        <div class="section-title">
+            <h2>Our Featured Products</h2>
+            <p>All items are printed when ordered with premium materials</p>
+        </div>
+        <div class="product-grid">
+            <div class="product-card">
+                <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/dd74a49e-f95e-4182-acd1-9f10f5b357cc.png" alt="White premium cotton t-shirt with custom print area on front" class="product-image">
+                <div class="product-info">
+                    <h3 class="product-title">Classic Tee</h3>
+                    <p class="product-price">$24.99</p>
+                    <button class="add-to-cart" data-id="1">Add to Cart</button>
+                </div>
+            </div>
+            <div class="product-card">
+                <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/490be309-8ada-4cb1-b6a8-4e2e4c69a0eb.png" alt="Black hooded sweatshirt with kangaroo pocket and drawstring hood" class="product-image">
+                <div class="product-info">
+                    <h3 class="product-title">Premium Hoodie</h3>
+                    <p class="product-price">$49.99</p>
+                    <button class="add-to-cart" data-id="2">Add to Cart</button>
+                </div>
+            </div>
+            <div class="product-card">
+                <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/bab18243-3877-4c86-9cd7-ed5ff5821adf.png" alt="Unisex crewneck sweatshirt in heather gray with print area" class="product-image">
+                <div class="product-info">
+                    <h3 class="product-title">Crewneck Sweatshirt</h3>
+                    <p class="product-price">$39.99</p>
+                    <button class="add-to-cart" data-id="3">Add to Cart</button>
+                </div>
+            </div>
+            <div class="product-card">
+                <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/a3a91d46-a44b-4b37-b208-52126bf5f8c2.png" alt="Women's fitted v-neck t-shirt in pastel pink with custom design" class="product-image">
+                <div class="product-info">
+                    <h3 class="product-title">Fitted V-Neck</h3>
+                    <p class="product-price">$29.99</p>
+                    <button class="add-to-cart" data-id="4">Add to Cart</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="order" class="products fade-in">
+        <div class="order-form">
+            <h2>Place Your Order</h2>
+            <p>Your custom printed items will be produced and shipped within 3-5 business days</p>
+            
+            <div class="cart-items">
+                <!-- Cart items will be dynamically inserted here -->
+            </div>
+            
+            <div class="total">
+                Total: $<span id="grand-total">0.00</span>
+            </div>
+
+            <form id="checkout-form">
+                <input type="hidden" name="_subject" value="New Print-on-Demand Order">
+                <input type="hidden" name="_template" value="table">
+                <input type="hidden" name="_captcha" value="false">
+                <input type="hidden" name="_autoresponse" value="Thank you for your order! We'll process it within 24 hours.">
+                <div class="form-group">
+                    <label for="name">Full Name</label>
+                    <input type="text" id="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="phone">Phone Number</label>
+                    <input type="tel" id="phone" required>
+                </div>
+                <div class="form-group">
+                    <label for="address">Shipping Address</label>
+                    <textarea id="address" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="design-notes">Design Notes or Special Instructions</label>
+                    <textarea id="design-notes"></textarea>
+                </div>
+                <button type="submit" class="btn" style="width: 100%; padding: 1rem; font-size: 1.1rem;">Place Order</button>
+            </form>
+        </div>
+    </section>
+
+    <section id="design" class="products fade-in">
+        <div class="order-form">
+            <h2>Create Custom Design</h2>
+            <p>Upload your artwork or describe your design concept for our team to create</p>
+            
+            <form id="design-form">
+                <div class="form-group">
+                    <label for="design-name">Design Name</label>
+                    <input type="text" id="design-name" required>
+                </div>
+                <div class="form-group">
+                    <label for="design-description">Design Description</label>
+                    <textarea id="design-description" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="design-file">Upload Design File (JPG, PNG, PDF, AI)</label>
+                    <input type="file" id="design-file">
+                </div>
+                <div class="form-group">
+                    <label for="design-preferences">Color Preferences</label>
+                    <input type="text" id="design-preferences" placeholder="e.g. Black shirt with white print">
+                </div>
+                <button type="submit" class="btn" style="width: 100%; padding: 1rem; font-size: 1.1rem;">Submit Design Request</button>
+            </form>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-links">
+            <a href="#">Privacy Policy</a>
+            <a href="#">Terms of Service</a>
+            <a href="#">Shipping Info</a>
+            <a href="#">Returns</a>
+            <a href="#contact">Contact Us</a>
+        </div>
+        <p class="copyright">© 2023 InkThread Apparel. All rights reserved.</p>
+    </footer>
+
+    <div class="notification" id="notification">
+        Order placed successfully! You'll receive a confirmation email shortly.
+    </div>
+
+    <script>
+        // Cart functionality
+        let cart = [];
+        
+        // Product data
+        const products = {
+            1: { id: 1, name: 'Classic Tee', price: 24.99, image: 'https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/e59950fc-dfad-427b-8a7b-e877d9f344d2.png' },
+            2: { id: 2, name: 'Premium Hoodie', price: 49.99, image: 'https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/48b835c8-b3c2-4b34-a0a2-94d503a020d8.png' },
+            3: { id: 3, name: 'Crewneck Sweatshirt', price: 39.99, image: 'https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/e2122026-dc97-44c7-bc35-2dfb6210534e.png' },
+            4: { id: 4, name: 'Fitted V-Neck', price: 29.99, image: 'https://placehold.co/600x400' }
+        };
+
+        // Update cart count display
+        function updateCartCount() {
+            const totalItems = cart.reduce((total, item) => total + item.quantity, 0);
+            document.querySelector('.cart-count').textContent = totalItems;
+        }
+
+        // Update cart items display
+        function updateCartDisplay() {
+            const cartItemsEl = document.querySelector('.cart-items');
+            const totalEl = document.getElementById('grand-total');
+            
+            if (cart.length === 0) {
+                cartItemsEl.innerHTML = '<p>Your cart is empty. Add items from the shop above.</p>';
+                totalEl.textContent = '0.00';
+                return;
+            }
+            
+            let html = '';
+            let total = 0;
+            
+            cart.forEach(item => {
+                const product = products[item.id];
+                const itemTotal = product.price * item.quantity;
+                total += itemTotal;
+                
+                html += `
+                    <div class="cart-item" data-id="${item.id}">
+                        <div>
+                            <h4>${product.name}</h4>
+                            <p>$${product.price.toFixed(2)} x ${item.quantity}</p>
+                        </div>
+                        <div>
+                            <p>$${itemTotal.toFixed(2)}</p>
+                            <button class="remove-item">Remove</button>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            cartItemsEl.innerHTML = html;
+            totalEl.textContent = total.toFixed(2);
+            
+            // Add event listeners to remove buttons
+            document.querySelectorAll('.remove-item').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    const itemId = parseInt(e.target.closest('.cart-item').getAttribute('data-id'));
+                    removeFromCart(itemId);
+                });
+            });
+        }
+
+        // Add to cart
+        function addToCart(productId) {
+            const existingItem = cart.find(item => item.id === productId);
+            
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cart.push({ id: productId, quantity: 1 });
+            }
+            
+            updateCartCount();
+            updateCartDisplay();
+            showNotification(`${products[productId].name} added to cart`);
+        }
+
+        // Remove from cart
+        function removeFromCart(productId) {
+            cart = cart.filter(item => item.id !== productId);
+            updateCartCount();
+            updateCartDisplay();
+            showNotification(`Item removed from cart`);
+        }
+
+        // Notification system
+        function showNotification(message) {
+            const notification = document.getElementById('notification');
+            notification.textContent = message;
+            notification.classList.add('show');
+            
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 3000);
+        }
+
+        // Email order function to Gmail
+        function sendOrderEmail(orderDetails) {
+            const formData = new FormData();
+            formData.append('name', orderDetails.name);
+            formData.append('email', orderDetails.email); 
+            formData.append('phone', orderDetails.phone);
+            formData.append('address', orderDetails.address);
+            formData.append('design_notes', orderDetails.designNotes || 'None');
+            formData.append('items', JSON.stringify(orderDetails.items));
+            formData.append('total', orderDetails.total);
+            
+            fetch('https://formsubmit.co/ajax/merimi19584@gmail.com', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => {
+                if(response.ok) {
+                    showNotification('Order placed successfully! Confirmation sent to your email.');
+                } else {
+                    showNotification('Order submitted! We will contact you shortly.');
+                }
+            })
+            .catch(error => {
+                showNotification('Order placed! If you don\'t receive an email, please contact us.');
+                console.log('Error sending email:', error);
+            });
+        }
+
+        // Checkout form submission
+        document.getElementById('checkout-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            if (cart.length === 0) {
+                showNotification('Please add items to your cart before checking out');
+                return;
+            }
+            
+            const orderDetails = {
+                name: document.getElementById('name').value,
+                email: document.getElementById('email').value,
+                phone: document.getElementById('phone').value,
+                address: document.getElementById('address').value,
+                designNotes: document.getElementById('design-notes').value,
+                items: cart.map(item => ({
+                    id: item.id,
+                    name: products[item.id].name,
+                    price: products[item.id].price,
+                    quantity: item.quantity
+                })),
+                total: cart.reduce((total, item) => total + (products[item.id].price * item.quantity), 0)
+            };
+            
+            // Save to localStorage (or send to server in real app)
+            localStorage.setItem('lastOrder', JSON.stringify(orderDetails));
+            
+            // Send order email
+            sendOrderEmail(orderDetails);
+            
+            // Reset cart
+            cart = [];
+            updateCartCount();
+            updateCartDisplay();
+            
+            // Reset form
+            e.target.reset();
+        });
+
+        // Design form submission
+        document.getElementById('design-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            const designDetails = {
+                name: document.getElementById('design-name').value,
+                description: document.getElementById('design-description').value,
+                preferences: document.getElementById('design-preferences').value,
+                file: document.getElementById('design-file').files[0]?.name || 'No file uploaded'
+            };
+            
+            // In a real app, you would upload the file to your server
+            console.log('Design submitted:', designDetails);
+            showNotification('Design request submitted! Our team will review it soon.');
+            e.target.reset();
+        });
+
+        // Add event listeners to all "Add to Cart" buttons
+        document.querySelectorAll('.add-to-cart').forEach(button => {
+            button.addEventListener('click', (e) => {
+                const productId = parseInt(e.target.getAttribute('data-id'));
+                addToCart(productId);
+            });
+        });
+
+        // Initialize cart display
+        updateCartDisplay();
+
+        // Intersection Observer for fade-in animation
+        const faders = document.querySelectorAll('.hero, .products, .order-form'); // Select sections to animate
+
+        const appearOptions = {
+            threshold: 0.2, // Trigger when 20% of the element is visible
+            rootMargin: "0px 0px -50px 0px" // Adjust when element enters viewport
+        };
+
+        const appearOnScroll = new IntersectionObserver(function(entries, appearOnScroll) {
+            entries.forEach(entry => {
+                if (!entry.isIntersecting) {
+                    return;
+                } else {
+                    entry.target.classList.add('appear');
+                    appearOnScroll.unobserve(entry.target);
+                }
+            });
+        }, appearOptions);
+
+        faders.forEach(fader => {
+            fader.classList.add('fade-in'); // Add initial fade-in class
+            appearOnScroll.observe(fader);
+        });
+    </script>
+</body>
+</html>
