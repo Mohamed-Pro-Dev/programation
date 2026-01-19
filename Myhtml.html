@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>الثانوية التأهيلية عمر بن عبد العزيز | سِمة الظلام والابتكار</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <style>
+        /* --- المتغيرات العامة للسمة الداكنة --- */
+        :root {
+            --primary-dark: #121212; /* خلفية داكنة جداً */
+            --secondary-dark: #1f1f1f; /* لون أغمق للبطاقات */
+            --accent-green: #00e676; /* لمسة خضراء نيون (Modern & Techy) */
+            --text-light: #e0e0e0; /* نص ساطع */
+            --text-muted: #a0a0a0; /* نص ثانوي */
+            --glow-color: #00e676; /* لون الإضاءة */
+            --font-heading: 'Tajawal', sans-serif;
+            --font-body: 'Tajawal', sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-body);
+            line-height: 1.7;
+            color: var(--text-light);
+            background-color: var(--primary-dark);
+            direction: rtl; 
+            text-align: right;
+            overflow-x: hidden; 
+        }
+
+        section {
+            padding: 80px 5%;
+            overflow: hidden;
+        }
+
+        h1, h2, h3 {
+            font-family: var(--font-heading);
+            font-weight: 800;
+        }
+        
+        /* تأثير الإضاءة على العناوين الكبيرة */
+        .section-title {
+            font-size: 3em;
+            color: var(--accent-green);
+            text-align: center;
+            margin-bottom: 50px;
+            text-shadow: 0 0 15px rgba(0, 230, 118, 0.4); /* تأثير الوهج */
+        }
+        
+        /* --- الأزرار الداكنة (Dark Buttons) --- */
+        .cta-button {
+            display: inline-block;
+            padding: 14px 35px;
+            margin: 10px 10px 10px 0;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: 700;
+            transition: all 0.3s ease-in-out;
+            border: none;
+        }
+
+        .cta-button.primary {
+            background: var(--accent-green);
+            color: var(--primary-dark);
+            box-shadow: 0 4px 15px rgba(0, 230, 118, 0.5);
+        }
+
+        .cta-button.primary:hover {
+            transform: translateY(-3px);
+            background: #00c853;
+            box-shadow: 0 8px 20px rgba(0, 230, 118, 0.7);
+        }
+
+        .cta-button.secondary {
+            background: transparent;
+            color: var(--text-light);
+            border: 2px solid var(--text-muted);
+        }
+
+        .cta-button.secondary:hover {
+            transform: translateY(-3px);
+            background: var(--secondary-dark);
+            border-color: var(--accent-green);
+        }
+        
+        /* --- الهيدر والتنقل (Dark Header) --- */
+        .main-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 18px 5%;
+            background: var(--primary-dark);
+            border-bottom: 1px solid var(--secondary-dark);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo {
+            font-size: 2em;
+            color: var(--accent-green);
+            text-shadow: 0 0 5px rgba(0, 230, 118, 0.5);
+        }
+
+        .main-nav a {
+            text-decoration: none;
+            color: var(--text-light);
+            margin: 0 12px;
+            font-weight: 500;
+            position: relative;
+        }
+
+        /* خط سفلي مضيء */
+        .main-nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            right: 0;
+            width: 0;
+            height: 3px;
+            background: var(--accent-green);
+            transition: width 0.3s ease;
+            box-shadow: 0 0 8px rgba(0, 230, 118, 0.7);
+        }
+
+        .main-nav a:hover::after {
+            width: 100%;
+        }
+
+        /* --- زر قائمة الموبايل (الهام لمنظر متحرك) --- */
+        .menu-toggle {
+            display: none;
+            cursor: pointer;
+            width: 34px;
+            height: 28px;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .menu-toggle .bar {
+            display: block;
+            height: 4px;
+            border-radius: 4px;
+            transition: transform 0.35s ease, opacity 0.35s ease;
+            background-color: var(--accent-green);
+        }
+
+        .menu-toggle.active .bar:nth-child(1) { transform: translateY(10px) rotate(45deg); }
+        .menu-toggle.active .bar:nth-child(2) { opacity: 0; }
+        .menu-toggle.active .bar:nth-child(3) { transform: translateY(-10px) rotate(-45deg); }
+
+        /* --- قسم البطل (Hero Section) --- */
+        .hero {
+            background: linear-gradient(135deg, rgba(18, 18, 18, 0.9), rgba(18, 18, 18, 0.7)), 
+                        url('Screenshot_20251229_222921_Maps.jpg') no-repeat center center/cover;
+            height: 90vh;
+            display: flex;
+            align-items: center;
+            justify-content: right;
+            padding-right: 5%;
+        }
+
+        .hero-content h1 {
+            font-size: 3.8em;
+            color: var(--text-light);
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+            animation: heroEntrance 1.1s ease both, heroGlow 3s ease-in-out infinite alternate;
+        }
+
+        @keyframes heroEntrance {
+            from { transform: translateY(20px) scale(0.98); opacity: 0; }
+            to { transform: translateY(0) scale(1); opacity: 1; }
+        }
+
+        @keyframes heroGlow {
+            from { text-shadow: 0 0 6px rgba(0,230,118,0.25); }
+            to   { text-shadow: 0 0 22px rgba(0,230,118,0.55); }
+        }
+
+        .hero-content p {
+            font-size: 1.5em;
+            color: var(--text-muted);
+            font-weight: 400;
+        }
+
+        /* --- قسم الأركان (Dark Cards) --- */
+        .pillar-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+
+        .pillar {
+            background: var(--secondary-dark);
+            padding: 40px;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5);
+            transition: transform 0.4s ease-out, box-shadow 0.4s ease-out;
+            border: 1px solid #333;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .pillar:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.7);
+            border-color: var(--accent-green);
+        }
+
+        .pillar.in-view {
+            animation: pillarReveal 0.7s cubic-bezier(.22,.9,.26,1) forwards;
+        }
+
+        @keyframes pillarReveal {
+            from { opacity: 0; transform: translateY(30px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        .pillar i {
+            font-size: 3.5em;
+            color: var(--accent-green);
+            margin-bottom: 20px;
+            text-shadow: 0 0 10px rgba(0, 230, 118, 0.7);
+        }
+
+        .pillar h3 {
+            font-size: 1.6em;
+            color: var(--text-light);
+            margin-bottom: 15px;
+        }
+        
+        /* --- معرض الحياة الطلابية (Dark Carousel) --- */
+        .showcase {
+            background-color: var(--primary-dark);
+        }
+        
+        .carousel-container {
+            max-width: 1000px;
+            margin: 0 auto 40px;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            border: 1px solid #333;
+        }
+        
+        .carousel-track {
+            display: flex;
+            transition: transform 0.6s ease-in-out;
+        }
+        
+        .carousel-item {
+            min-width: 100%;
+            aspect-ratio: 16/9;
+            min-height: 320px;
+        }
+
+        .carousel-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.8s ease;
+        }
+
+        .carousel-item.active img { transform: scale(1.03); }
+
+        /* Skip link focus-visible */
+        .skip-link {
+            position: absolute;
+            left: -9999px;
+            top: auto;
+            width: 1px;
+            height: 1px;
+            overflow: hidden;
+        }
+        .skip-link:focus {
+            left: 10px;
+            top: 10px;
+            width: auto;
+            height: auto;
+            padding: 8px 12px;
+            background: #000;
+            color: var(--accent-green);
+            z-index: 2000;
+            border-radius: 6px;
+            box-shadow: 0 4px 14px rgba(0,0,0,0.6);
+        }
+
+        /* Visible focus styles for keyboard users */
+        :focus-visible {
+            outline: 3px solid rgba(0,230,118,0.28);
+            outline-offset: 3px;
+        }
+
+        /* Respect reduced motion preference */
+        @media (prefers-reduced-motion: reduce) {
+            * { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; }
+        }
+
+        .carousel-nav button {
+            background: rgba(0, 0, 0, 0.6);
+            color: var(--accent-green);
+            /* باقي أنماط الأزرار ... */
+        }
+
+        .carousel-nav button:hover {
+            background: var(--accent-green);
+            color: var(--primary-dark);
+        }
+
+        /* --- معرض الصور مع الأوصاف (Photo Gallery with Descriptions) --- */
+        .gallery-section {
+            background-color: var(--primary-dark);
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .gallery-item {
+            background: var(--secondary-dark);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5);
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+            border: 1px solid #333;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 35px rgba(0, 230, 118, 0.3);
+            border-color: var(--accent-green);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.05);
+        }
+
+        .gallery-description {
+            padding: 25px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .gallery-description h3 {
+            font-size: 1.4em;
+            color: var(--accent-green);
+            margin-bottom: 12px;
+            text-shadow: 0 0 8px rgba(0, 230, 118, 0.3);
+        }
+
+        .gallery-description p {
+            font-size: 0.95em;
+            color: var(--text-light);
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        /* --- التذييل (Dark Footer) --- */
+        footer {
+            background: #000;
+            color: var(--text-muted);
+            padding: 30px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.9em;
+            border-top: 2px solid var(--accent-green); /* خط نيون للفصل */
+        }
+
+        .social-links i {
+            font-size: 1.5em;
+            margin-right: 15px;
+            cursor: pointer;
+            transition: color 0.3s;
+            color: var(--text-muted);
+        }
+
+        .social-links a { color: var(--text-muted); margin-right: 12px; text-decoration: none; }
+        .social-links a i { font-size: 1.4em; transition: color 0.25s, transform 0.25s; }
+        .social-links a:focus-visible, .social-links a:hover { color: var(--accent-green); }
+        .social-links a:hover i, .social-links a:focus-visible i { transform: translateY(-3px); color: var(--accent-green); text-shadow: 0 0 8px var(--accent-green); }
+
+        /* --- استجابة الموبايل (Mobile Responsiveness) --- */
+        @media (max-width: 768px) {
+            .main-header {
+                border-bottom: none;
+            }
+            .menu-toggle { display: flex; }
+            .main-nav { display: none; }
+            .main-nav.active { display: block; position: absolute; left: 0; right: 0; top: 64px; padding: 20px 5%; }
+            .main-nav.active {
+                background: var(--primary-dark);
+                box-shadow: 0 5px 10px rgba(0,0,0,0.5);
+            }
+            .hero-content h1 {
+                font-size: 2.5em;
+            }
+            .section-title {
+                font-size: 2.2em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <a class="skip-link" href="#main">تخطي إلى المحتوى</a>
+
+    <header class="main-header">
+        <div class="logo"> الثانوية التأهيليةعمر بن عبد العزيز</div>
+        <nav class="main-nav" id="main-nav" role="navigation" aria-label="القائمة الرئيسية">
+            <a href="#academics">البرامج الأكاديمية</a>
+            <a href="#student-life">الحياة الطلابية</a>
+            <a href="#legacy">رؤيتنا وإرثنا</a>
+            <a href="#admissions">التسجيل والقبول</a>
+            <button class="cta-button primary nav-cta">بوابة الإدارة</button>
+        </nav>
+        <button class="menu-toggle" id="mobile-menu" type="button" aria-label="قائمة التنقل" aria-controls="main-nav" aria-expanded="false">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+        </button>
+    </header>
+
+    <main id="main">
+    <section class="hero">
+        <div class="hero-content">
+            <h1>رؤية متجددة. مستقبل مضيء.</h1>
+            <p>ندعوكم لاكتشاف التجربة التعليمية التي تجمع بين عراقة الماضي وإبداعات العصر الرقمي.</p>
+            <a href="#admissions" class="cta-button primary" target="_blank">سجل الآن</a>
+            <a href="#virtual-tour" class="cta-button secondary" target="_blank">تعرّف علينا</a>
+        </div>
+    </section>
+
+    <section class="pillars" id="legacy">
+        <h2 class="section-title">قواعد بناء القيادة</h2>
+        <div class="pillar-grid">
+            <div class="pillar">
+                <i class="fas fa-handshake"></i>
+                <h3>الشفافية والعدالة</h3>
+                <p>بيئة تعليمية منصفة وواضحة، تُعلي من قيمة النزاهة في كافة التعاملات الأكاديمية.</p>
+            </div>
+            <div class="pillar">
+                <i class="fas fa-code"></i>
+                <h3>الابتكار الرقمي</h3>
+                <p>تجهيزات متطورة وبرامج تعليمية تركز على مهارات المستقبل والتحول الرقمي.</p>
+            </div>
+            <div class="pillar">
+                <i class="fas fa-chalkboard-user"></i>
+                <h3>التعليم المخصص</h3>
+                <p>توفير توجيه فردي وبرامج إثراء تتناسب مع طموحات كل طالب وقدراته الفريدة.</p>
+            </div>
+        </div>
+
+
+    <section class="gallery-section" id="gallery">
+        <h2 class="section-title">معرض الصور</h2>
+        <div class="gallery-grid">
+            <div class="gallery-item">
+                <img src="Screenshot_20251229_222940_Maps.jpg" alt="تجمع طلابي" loading="lazy" decoding="async" width="600" height="400">
+                <div class="gallery-description">
+                    <h3>التجمع الطلابي</h3>
+                    <p>صورة رائعة تجمع الطلاب والطالبات في تجمع منظم ومميز، يعكس الروح الجماعية والتعاون في مدرسة عمر بن عبد العزيز التأهيلية.</p>
+                </div>
+            </div>
+
+            <div class="gallery-item">
+                <img src="Screenshot_20251229_222929_Maps.jpg" alt="لحظة تعليمية" loading="lazy" decoding="async" width="600" height="400">
+                <div class="gallery-description">
+                    <h3>لحظات تعليمية مميزة</h3>
+                    <p>لقطات من حياتنا اليومية بالمدرسة تعكس الفعاليات والأنشطة التعليمية المتنوعة التي يشارك فيها الطلاب بحماس وإصرار.</p>
+                </div>
+            </div>
+
+            <div class="gallery-item">
+                <img src="Screenshot_20251229_222951_Maps.jpg" alt="حديقة المدرسة" loading="lazy" decoding="async" width="600" height="400">
+                <div class="gallery-description">
+                    <h3>حديقة المدرسة الخضراء</h3>
+                    <p>مساحات خضراء معتنى بها توفر بيئة هادئة وملهمة للطلاب، حيث يمكنهم الاسترخاء والتعلم في جو طبيعي جميل.</p>
+                </div>
+            </div>
+
+            <div class="gallery-item">
+                <img src="Screenshot_20251229_222916_Maps.jpg" alt="مبنى المدرسة ليلاً" loading="lazy" decoding="async" width="600" height="400">
+                <div class="gallery-description">
+                    <h3>المبنى الدراسي الحديث</h3>
+                    <p>تصميم معماري عصري يجمع بين الجمال والعملية، يوفر بيئة تعليمية متطورة تساعد على التركيز والإنتاجية.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    </main>
+
+    <footer>
+        <p>تصميم السمة الداكنة | الثانوية التأهيلية عمر بن عبد العزيز © 2025</p>
+        <div class="social-links">
+            <a href="https://www.9rayti.com/ecole/cpge-oujda" class="social" aria-label="فيسبوك" title="فيسبوك" target="_blank"><i class="fab fa-facebook"></i></a>
+            <a href="https://www.9rayti.com/ecole/cpge-oujda" class="social" aria-label="انستغرام" title="انستغرام" target="_blank"><i class="fab fa-instagram"></i></a>
+            <a href="https://www.9rayti.com/ecole/cpge-oujda" class="social" aria-label="يوتيوب" title="يوتيوب" target="_blank"><i class="fab fa-youtube"></i></a>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // --- 1. وظيفة تبديل قائمة الموبايل مع أنيميشن ---
+            const mobileMenu = document.getElementById('mobile-menu');
+            const nav = document.getElementById('main-nav');
+
+            mobileMenu.addEventListener('click', () => {
+                const opened = nav.classList.toggle('active');
+                mobileMenu.classList.toggle('active');
+                mobileMenu.setAttribute('aria-expanded', opened ? 'true' : 'false');
+                if (opened) {
+                    // focus first link for keyboard users
+                    const firstLink = nav.querySelector('a');
+                    if (firstLink) firstLink.focus();
+                }
+            });
+
+            document.querySelectorAll('.main-nav a, .nav-cta').forEach(element => {
+                element.addEventListener('click', () => {
+                    if (nav.classList.contains('active')) {
+                        nav.classList.remove('active');
+                        mobileMenu.classList.remove('active');
+                    }
+                });
+            });
+
+            // --- 2. حركة التمرير للأركان (Pillars) باستخدام فئة .in-view ---
+            const pillars = document.querySelectorAll('.pillar');
+            const pillarObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('in-view');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { root: null, threshold: 0.18 });
+
+            pillars.forEach(pillar => pillarObserver.observe(pillar));
+
+            // --- 3. آلية الشرائح المتحركة (Carousel) المصححة والسلسة ---
+            const track = document.getElementById('carouselTrack');
+            const items = Array.from(document.querySelectorAll('.carousel-item'));
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+            let currentIndex = 0;
+            const totalItems = items.length || 1;
+
+            const updateCarousel = () => {
+                track.style.transform = `translateX(${ -currentIndex * 100 }%)`;
+                items.forEach((it, idx) => it.classList.toggle('active', idx === currentIndex));
+            };
+
+            prevBtn.addEventListener('click', () => {
+                currentIndex = (currentIndex - 1 + totalItems) % totalItems;
+                updateCarousel();
+            });
+
+            nextBtn.addEventListener('click', () => {
+                currentIndex = (currentIndex + 1) % totalItems;
+                updateCarousel();
+            });
+
+            // Keyboard support and reduced-motion handling
+            const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+            // Auto-slide (skip if user prefers reduced motion)
+            let autoSlide = null;
+            const startAuto = () => {
+                if (prefersReduced) return;
+                if (autoSlide) clearInterval(autoSlide);
+                autoSlide = setInterval(() => {
+                    currentIndex = (currentIndex + 1) % totalItems;
+                    updateCarousel();
+                }, 5000);
+            };
+
+            const container = track.parentElement;
+            container.addEventListener('mouseenter', () => { if (autoSlide) clearInterval(autoSlide); });
+            container.addEventListener('mouseleave', () => startAuto());
+
+            // allow keyboard arrows to control the carousel
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'ArrowLeft') {
+                    prevBtn.click();
+                } else if (e.key === 'ArrowRight') {
+                    nextBtn.click();
+                }
+            });
+
+            // make container focusable for screen reader users
+            container.setAttribute('tabindex', '0');
+
+            // Initialize
+            updateCarousel();
+            startAuto();
+        });
+    </script>
+</body>
+</html>
