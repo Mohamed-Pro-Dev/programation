@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مساعد ذكي | ثانوية عمر بن عبد العزيز</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary-dark: #121212;
+            --secondary-dark: #1f1f1f;
+            --accent-green: #00e676;
+            --text-light: #e0e0e0;
+            --text-muted: #a0a0a0;
+            --font-heading: 'Tajawal', sans-serif;
+            --font-body: 'Tajawal', sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-body);
+            line-height: 1.7;
+            color: var(--text-light);
+            background-color: var(--primary-dark);
+            direction: rtl;
+            text-align: right;
+            overflow-x: hidden;
+        }
+
+        /* Header */
+        .main-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 18px 5%;
+            background: var(--primary-dark);
+            border-bottom: 2px solid var(--accent-green);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo {
+            font-size: 2em;
+            color: var(--accent-green);
+            text-shadow: 0 0 5px rgba(0, 230, 118, 0.5);
+            cursor: pointer;
+        }
+
+        .main-nav a {
+            text-decoration: none;
+            color: var(--text-light);
+            margin: 0 12px;
+            font-weight: 500;
+            position: relative;
+        }
+
+        .main-nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            right: 0;
+            width: 0;
+            height: 3px;
+            background: var(--accent-green);
+            transition: width 0.3s ease;
+            box-shadow: 0 0 8px rgba(0, 230, 118, 0.7);
+        }
+
+        .main-nav a:hover::after {
+            width: 100%;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, rgba(18, 18, 18, 0.9), rgba(18, 18, 18, 0.7));
+            height: 50vh;
+            display: flex;
+            align-items: center;
+            justify-content: right;
+            padding-right: 5%;
+            text-align: center;
+        }
+
+        .hero-content h1 {
+            font-size: 3.5em;
+            color: var(--accent-green);
+            text-shadow: 0 0 15px rgba(0, 230, 118, 0.4);
+            animation: heroEntrance 1.1s ease both;
+            margin-bottom: 20px;
+        }
+
+        @keyframes heroEntrance {
+            from { transform: translateY(20px) scale(0.98); opacity: 0; }
+            to { transform: translateY(0) scale(1); opacity: 1; }
+        }
+
+        .hero-content p {
+            font-size: 1.3em;
+            color: var(--text-muted);
+            font-weight: 400;
+        }
+
+        /* Main Chat Container */
+        .chat-container {
+            max-width: 900px;
+            margin: 60px auto;
+            padding: 0 5%;
+        }
+
+        .chat-section-title {
+            font-size: 2.5em;
+            color: var(--accent-green);
+            text-align: center;
+            margin-bottom: 50px;
+            text-shadow: 0 0 15px rgba(0, 230, 118, 0.4);
+        }
+
+        .chat-box {
+            background: var(--secondary-dark);
+            border: 2px solid var(--accent-green);
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 40px rgba(0, 230, 118, 0.2);
+            display: flex;
+            flex-direction: column;
+            height: 600px;
+            transition: box-shadow 0.3s ease;
+        }
+
+        .chat-box:focus-within {
+            box-shadow: 0 15px 50px rgba(0, 230, 118, 0.3);
+        }
+
+        /* Messages Area */
+        .messages-area {
+            flex: 1;
+            overflow-y: auto;
+            margin-bottom: 20px;
+            padding-right: 10px;
+            border-radius: 10px;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 20px;
+        }
+
+        .message {
+            margin-bottom: 15px;
+            animation: messageSlide 0.3s ease;
+        }
+
+        @keyframes messageSlide {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .message.user {
+            text-align: right;
+        }
+
+        .message.bot {
+            text-align: right;
+        }
+
+        .message-text {
+            display: inline-block;
+            padding: 12px 18px;
+            border-radius: 10px;
+            max-width: 70%;
+            word-wrap: break-word;
+            line-height: 1.6;
+            font-size: 0.95em;
+        }
+
+        .message.user .message-text {
+            background: var(--accent-green);
+            color: var(--primary-dark);
+            font-weight: 500;
+        }
+
+        .message.bot .message-text {
+            background: rgba(0, 230, 118, 0.1);
+            color: var(--text-light);
+            border: 1px solid var(--accent-green);
+        }
+
+        .message.loading .message-text {
+            background: rgba(160, 160, 160, 0.2);
+            color: var(--text-muted);
+            border: 1px solid var(--text-muted);
+            font-style: italic;
+        }
+
+        /* Loading Animation */
+        .loading-dots {
+            display: inline-flex;
+            gap: 4px;
+        }
+
+        .loading-dots span {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--accent-green);
+            animation: bounce 1.4s infinite;
+        }
+
+        .loading-dots span:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .loading-dots span:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+
+        @keyframes bounce {
+            0%, 80%, 100% { opacity: 0.5; }
+            40% { opacity: 1; }
+        }
+
+        /* Input Area */
+        .input-area {
+            display: flex;
+            gap: 10px;
+            align-items: flex-end;
+        }
+
+        .input-wrapper {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .input-wrapper label {
+            font-size: 0.85em;
+            color: var(--accent-green);
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+
+        .chat-input {
+            width: 100%;
+            padding: 12px 15px;
+            background: rgba(0, 0, 0, 0.3);
+            border: 2px solid #333;
+            border-radius: 8px;
+            color: var(--text-light);
+            font-family: var(--font-body);
+            font-size: 0.95em;
+            direction: rtl;
+            text-align: right;
+            resize: none;
+            max-height: 80px;
+            transition: all 0.3s ease;
+        }
+
+        .chat-input:focus {
+            outline: none;
+            border-color: var(--accent-green);
+            background: rgba(0, 230, 118, 0.05);
+            box-shadow: 0 0 15px rgba(0, 230, 118, 0.2);
+        }
+
+        .chat-input::placeholder {
+            color: var(--text-muted);
+        }
+
+        .send-btn {
+            padding: 12px 25px;
+            background: var(--accent-green);
+            color: var(--primary-dark);
+            border: none;
+            border-radius: 8px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1em;
+            height: 45px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .send-btn:hover:not(:disabled) {
+            background: #00c853;
+            box-shadow: 0 4px 15px rgba(0, 230, 118, 0.5);
+            transform: translateY(-2px);
+        }
+
+        .send-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .send-btn i {
+            margin-left: 8px;
+        }
+
+        /* Info Card */
+        .info-card {
+            background: rgba(0, 230, 118, 0.1);
+            border: 2px solid var(--accent-green);
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 40px;
+            text-align: center;
+        }
+
+        .info-card i {
+            font-size: 2em;
+            color: var(--accent-green);
+            margin-bottom: 10px;
+        }
+
+        .info-card h3 {
+            color: var(--accent-green);
+            margin-bottom: 10px;
+        }
+
+        .info-card p {
+            color: var(--text-muted);
+            font-size: 0.95em;
+        }
+
+        /* Footer */
+        footer {
+            background: #000;
+            color: var(--text-muted);
+            padding: 30px 5%;
+            text-align: center;
+            font-size: 0.9em;
+            border-top: 2px solid var(--accent-green);
+            margin-top: 60px;
+        }
+
+        /* Scrollbar */
+        .messages-area::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .messages-area::-webkit-scrollbar-track {
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+        }
+
+        .messages-area::-webkit-scrollbar-thumb {
+            background: var(--accent-green);
+            border-radius: 10px;
+        }
+
+        .messages-area::-webkit-scrollbar-thumb:hover {
+            background: #00c853;
+        }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 768px) {
+            .hero-content h1 {
+                font-size: 2.2em;
+            }
+
+            .chat-box {
+                height: 500px;
+                padding: 20px;
+            }
+
+            .message-text {
+                max-width: 85%;
+            }
+
+            .input-area {
+                flex-direction: column-reverse;
+            }
+
+            .send-btn {
+                width: 100%;
+            }
+
+            footer {
+                text-align: center;
+            }
+        }
+
+        :focus-visible {
+            outline: 3px solid rgba(0, 230, 118, 0.28);
+            outline-offset: 3px;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            * { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; }
+        }
+    </style>
+</head>
+<body>
+    <header class="main-header">
+        <div class="logo" onclick="window.location.href='Myhtml.html'">عمر بن عبد العزيز</div>
+        <nav class="main-nav" role="navigation" aria-label="القائمة الرئيسية">
+            <a href="Myhtml.html">الرئيسية</a>
+            <a href="Lycée2.html">تعرّف علينا</a>
+            <a href="Lycée3.html">التسجيل</a>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="hero-content">
+                <h1>مساعدك الذكي 🤖</h1>
+                <p>اسأل عن أي شيء يتعلق بالمدرسة والتعليم</p>
+            </div>
+        </section>
+
+        <section class="chat-container">
+            <h2 class="chat-section-title">دردشة مع الذكاء الاصطناعي</h2>
+            
+            <div class="chat-box">
+                <div class="messages-area" id="messagesArea" role="log" aria-live="polite" aria-label="منطقة الرسائل">
+                    <div class="message bot">
+                        <div class="message-text">
+                            👋 مرحباً بك! أنا مساعدك الذكي. كيف يمكنني مساعدتك اليوم؟
+                            <br><br>
+                            يمكنك أن تسأل عن:
+                            <br>• برامج المدرسة الأكاديمية
+                            <br>• الحياة الطلابية والأنشطة
+                            <br>• شروط التسجيل والقبول
+                            <br>• معلومات التواصل
+                        </div>
+                    </div>
+                </div>
+
+                <div class="input-area">
+                    <button class="send-btn" id="sendBtn" aria-label="إرسال الرسالة">
+                        أرسل <i class="fas fa-paper-plane"></i>
+                    </button>
+                    <div class="input-wrapper">
+                        <label for="chatInput">اكتب رسالتك هنا:</label>
+                        <textarea 
+                            id="chatInput" 
+                            class="chat-input" 
+                            placeholder="اكتب سؤالك أو تعليقك..."
+                            aria-label="حقل إدخال الرسالة"
+                            rows="1"
+                        ></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <div class="info-card">
+                <i class="fas fa-info-circle"></i>
+                <h3>معلومات مهمة</h3>
+                <p>هذا الذكاء الاصطناعي متاح 24/7 للإجابة على أسئلتك. للمتطلبات الفورية أو الحجوزات، يرجى التواصل المباشر مع إدارة المدرسة.</p>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>ثانوية عمر بن عبد العزيز © 2025 | مساعد ذكي</p>
+    </footer>
+
+    <script>
+        const messagesArea = document.getElementById('messagesArea');
+        const chatInput = document.getElementById('chatInput');
+        const sendBtn = document.getElementById('sendBtn');
+
+        // Auto-resize textarea
+        chatInput.addEventListener('input', function() {
+            this.style.height = 'auto';
+            this.style.height = Math.min(this.scrollHeight, 80) + 'px';
+        });
+
+        // Send message on Enter (Shift+Enter for new line)
+        chatInput.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                sendMessage();
+            }
+        });
+
+        sendBtn.addEventListener('click', sendMessage);
+
+        async function sendMessage() {
+            const userMessage = chatInput.value.trim();
+            
+            if (!userMessage) return;
+
+            // Add user message to chat
+            addMessage(userMessage, 'user');
+            chatInput.value = '';
+            chatInput.style.height = 'auto';
+            sendBtn.disabled = true;
+
+            // Show loading indicator
+            const loadingMsg = addLoadingMessage();
+
+            try {
+                // Send to backend (Python server)
+                const response = await fetch('http://localhost:5000/chat', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ message: userMessage })
+                });
+
+                const data = await response.json();
+                
+                // Remove loading message
+                loadingMsg.remove();
+
+                if (data.success) {
+                    addMessage(data.response, 'bot');
+                } else {
+                    addMessage('عذراً، حدث خطأ في الحصول على الرد. حاول مرة أخرى.', 'bot');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                loadingMsg.remove();
+                addMessage(
+                    'عذراً، لا يمكن الاتصال بالخادم. تأكد من أن خادم الذكاء الاصطناعي قيد التشغيل.',
+                    'bot'
+                );
+            }
+
+            sendBtn.disabled = false;
+            chatInput.focus();
+        }
+
+        function addMessage(text, sender) {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${sender}`;
+            
+            const messageText = document.createElement('div');
+            messageText.className = 'message-text';
+            messageText.textContent = text;
+            messageText.role = 'article';
+            
+            messageDiv.appendChild(messageText);
+            messagesArea.appendChild(messageDiv);
+            
+            // Scroll to bottom
+            setTimeout(() => {
+                messagesArea.scrollTop = messagesArea.scrollHeight;
+            }, 10);
+
+            return messageDiv;
+        }
+
+        function addLoadingMessage() {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = 'message bot loading';
+            
+            const messageText = document.createElement('div');
+            messageText.className = 'message-text';
+            messageText.innerHTML = `
+                <span>جاري معالجة رسالتك</span>
+                <div class="loading-dots">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            `;
+            
+            messageDiv.appendChild(messageText);
+            messagesArea.appendChild(messageDiv);
+            messagesArea.scrollTop = messagesArea.scrollHeight;
+
+            return messageDiv;
+        }
+
+        // Focus on input when page loads
+        window.addEventListener('load', () => {
+            chatInput.focus();
+        });
+    </script>
+</body>
+</html>
